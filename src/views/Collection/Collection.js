@@ -44,7 +44,11 @@ const Collection = (props) => {
               <Typography>{book.english}</Typography>
             </Grid>
             <Grid item xs={6} style={{ direction: "rtl" }}>
-              <Typography>{book.urdu}</Typography>
+              <Typography
+                style={{ fontFamily: "'Lateef', cursive", fontSize: 27 }}
+              >
+                {book.urdu}
+              </Typography>
             </Grid>
           </Grid>
         </Paper>

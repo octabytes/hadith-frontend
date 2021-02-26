@@ -89,34 +89,65 @@ const Hadiths = (props) => {
   return (
     <div>
       {hadiths.map((hadith) => (
-        <Paper
-          key={hadith.id}
-          style={{ padding: 16, marginBottom: 8 }}
-          elevation={3}
-        >
-          <Grid container spacing={3}>
-            <Grid item xs={6}>
-              <Typography style={{ direction: textDirection }}>
-                {hadith.text[language]}
-              </Typography>
-              <br />
-              <Typography variant="body2">
-                Status: {renderHadithStatus(hadith)}
-              </Typography>
-              <Typography variant="body2">
-                Hadith Number: {hadith.hadith_number}
-              </Typography>
-              {hadith.internationalNumber && (
-                <Typography>
-                  International Number: {hadith.internationalNumber}
+        <div key={hadith.id}>
+          <Paper
+            style={{
+              padding: 16,
+              marginBottom: 8,
+              marginTop: 16,
+              backgroundColor: "aliceblue",
+            }}
+            elevation={5}
+          >
+            <Grid container spacing={3}>
+              <Grid item xs={6}>
+                <Typography style={{ fontSize: 20 }}>
+                  {hadith.chapter.english}
                 </Typography>
-              )}
+              </Grid>
+              <Grid item xs={6}>
+                <Typography
+                  style={{
+                    direction: "rtl",
+                    fontFamily: "'Lateef', cursive",
+                    fontSize: 27,
+                  }}
+                >
+                  {hadith.chapter.urdu}
+                </Typography>
+              </Grid>
             </Grid>
-            <Grid item xs={6} style={{ direction: "rtl" }}>
-              <Typography>{hadith.text.arabic}</Typography>
+          </Paper>
+
+          <Paper style={{ padding: 16, marginBottom: 8 }} elevation={3}>
+            <Grid container spacing={3}>
+              <Grid item xs={6}>
+                <Typography style={{ direction: textDirection, fontSize: 20 }}>
+                  {hadith.text[language]}
+                </Typography>
+                <br />
+                <Typography variant="body2">
+                  Status: {renderHadithStatus(hadith)}
+                </Typography>
+                <Typography variant="body2">
+                  Hadith Number: {hadith.hadith_number}
+                </Typography>
+                {hadith.international_number && (
+                  <Typography variant="body2">
+                    International Number: {hadith.international_number}
+                  </Typography>
+                )}
+              </Grid>
+              <Grid item xs={6} style={{ direction: "rtl" }}>
+                <Typography
+                  style={{ fontFamily: "'Lateef', cursive", fontSize: 27 }}
+                >
+                  {hadith.text.arabic}
+                </Typography>
+              </Grid>
             </Grid>
-          </Grid>
-        </Paper>
+          </Paper>
+        </div>
       ))}
 
       <Pagination />

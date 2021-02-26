@@ -52,7 +52,14 @@ const Home = (props) => {
               onClick={() => getCollectionBooks(item.collection)}
             >
               <Typography variant="h5">{item.english}</Typography>
-              <Typography style={{ direction: "rtl" }} variant="h5">
+              <Typography
+                style={{
+                  direction: "rtl",
+                  fontFamily: "'Lateef', cursive",
+                  fontSize: 27,
+                }}
+                variant="h5"
+              >
                 {item.urdu}
               </Typography>
             </Paper>
