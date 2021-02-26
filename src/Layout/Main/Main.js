@@ -1,4 +1,5 @@
 import React from "react";
+import Footer from "./Components/Footer";
 import TopBar from "./Components/TopBar";
 
 const Main = (props) => {
@@ -6,6 +7,7 @@ const Main = (props) => {
     <div>
       <TopBar />
       <main style={{ margin: 24 }}>{props.children}</main>
+      <Footer />
     </div>
   );
 };
