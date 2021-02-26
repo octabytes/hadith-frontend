@@ -43,10 +43,11 @@ const Home = (props) => {
 
   return (
     <div>
-      <Grid container direction="row" justify="center">
+      <Grid container direction="row" justify="center" spacing={3}>
         {collections.map((item) => (
           <Grid key={item.collection} item xs={6}>
             <Paper
+              style={{ padding: 16, cursor: "pointer" }}
               elevation={3}
               onClick={() => getCollectionBooks(item.collection)}
             >

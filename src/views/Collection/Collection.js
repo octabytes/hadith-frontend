@@ -11,9 +11,11 @@ const Collection = (props) => {
   const books = useSelector((state) => state.books[collectionName]);
 
   const loadCollectionBooks = async () => {
-    const response = await getCollectionBooksAPI(collectionName);
-    if (!response.error) {
-      BooksActions.loadCollectionBooks(collectionName, response);
+    if (!books) {
+      const response = await getCollectionBooksAPI(collectionName);
+      if (!response.error) {
+        BooksActions.loadCollectionBooks(collectionName, response);
+      }
     }
   };
 
@@ -31,22 +33,22 @@ const Collection = (props) => {
 
   return (
     <div>
-      <Grid container spacing={2}>
-        {books.map((book) => (
-          <Paper
-            onClick={() => getBookHadiths(book.number)}
-            item
-            key={book.number}
-          >
+      {books.map((book) => (
+        <Paper
+          style={{ padding: 16, marginBottom: 8, cursor: "pointer" }}
+          onClick={() => getBookHadiths(book.number)}
+          key={book.number}
+        >
+          <Grid container spacing={2}>
             <Grid item xs={6}>
-              {book.english}
+              <Typography>{book.english}</Typography>
             </Grid>
             <Grid item xs={6} style={{ direction: "rtl" }}>
-              {book.urdu}
+              <Typography>{book.urdu}</Typography>
             </Grid>
-          </Paper>
-        ))}
-      </Grid>
+          </Grid>
+        </Paper>
+      ))}
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
 import { useSelector } from "react-redux";
 import HadithsActions from "store/actions/hadiths_actions";
 import { getBookHadithsAPI } from "api/hadiths";
@@ -13,7 +14,7 @@ const Hadiths = (props) => {
     offset = parseInt(search.replace("?offset=", ""));
   }
 
-  const collectionName = props.match.params.collection;
+  const collectionName = props.match.params.name;
   const bookNumber = props.match.params.number;
   const hadithPath = collectionName + "_" + bookNumber;
 
@@ -29,15 +30,26 @@ const Hadiths = (props) => {
   const textDirection = language === "english" ? "ltr" : "rtl";
 
   const loadBookHadiths = async () => {
-    const response = await getBookHadithsAPI(collectionName, bookNumber);
-    if (!response.error) {
-      HadithsActions.loadBookHadiths(collectionName, bookNumber, response);
+    if (!hadiths) {
+      const response = await getBookHadithsAPI(
+        collectionName,
+        bookNumber,
+        offset
+      );
+      if (!response.error) {
+        HadithsActions.loadBookHadiths(
+          collectionName,
+          bookNumber,
+          response,
+          offset
+        );
+      }
     }
   };
 
   useEffect(() => {
     loadBookHadiths();
-  }, []);
+  }, [search]);
 
   const renderHadithStatus = (hadith) => {
     let status = "";
@@ -70,26 +82,41 @@ const Hadiths = (props) => {
     return <h1>Loading...</h1>;
   }
 
+  if (!hadiths.length) {
+    return <h1>No more hadiths</h1>;
+  }
+
   return (
     <div>
       {hadiths.map((hadith) => (
-        <Grid key={hadith.id} container spacing={2}>
-          <Grid item xs={6}>
-            <Typography style={{ direction: textDirection }}>
-              {hadith.text[language]}
-            </Typography>
-            <Typography>Status: {renderHadithStatus(hadith)}</Typography>
-            <Typography>Hadith Number: {hadith.number}</Typography>
-            {hadith.internationalNumber && (
-              <Typography>
-                International Number: {hadith.internationalNumber}
+        <Paper
+          key={hadith.id}
+          style={{ padding: 16, marginBottom: 8 }}
+          elevation={3}
+        >
+          <Grid container spacing={3}>
+            <Grid item xs={6}>
+              <Typography style={{ direction: textDirection }}>
+                {hadith.text[language]}
               </Typography>
-            )}
+              <br />
+              <Typography variant="body2">
+                Status: {renderHadithStatus(hadith)}
+              </Typography>
+              <Typography variant="body2">
+                Hadith Number: {hadith.hadith_number}
+              </Typography>
+              {hadith.internationalNumber && (
+                <Typography>
+                  International Number: {hadith.internationalNumber}
+                </Typography>
+              )}
+            </Grid>
+            <Grid item xs={6} style={{ direction: "rtl" }}>
+              <Typography>{hadith.text.arabic}</Typography>
+            </Grid>
           </Grid>
-          <Grid item xs={6} style={{ direction: "rtl" }}>
-            <Typography>{hadith.text.arabic}</Typography>
-          </Grid>
-        </Grid>
+        </Paper>
       ))}
 
       <Pagination />

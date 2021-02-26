@@ -12,6 +12,7 @@ const LanguageMenu = () => {
 
   const changeLanguage = (language) => {
     AppActions.selectLanguage(language);
+    setOpen(null);
   };
 
   return (

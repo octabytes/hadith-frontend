@@ -1,16 +1,15 @@
 import React from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import Main from "Layout/Main";
 import Home from "views/Home";
 import Collection from "views/Collection";
 import Hadiths from "views/Hadiths";
 
 const RouteWithLayout = (props) => {
-  const { component: Component, path } = props;
+  const { component: Component, ...rest } = props;
   return (
     <Route
-      exact
-      path={path}
+      {...rest}
       render={(matchProps) => (
         <Main>
           <Component {...matchProps} />
@@ -24,15 +23,27 @@ const Routes = () => {
   return (
     <BrowserRouter>
       <Switch>
-        <RouteWithLayout path="/" component={Home} />
-        <RouteWithLayout path="/collection/:name" component={Collection} />
+        <RouteWithLayout exact path="/" component={Home} />
         <RouteWithLayout
+          exact
+          path="/collection/:name"
+          component={Collection}
+        />
+        <RouteWithLayout
+          exact
           path="/collection/:name/book/:number"
           component={Hadiths}
         />
+        <RouteWithLayout exact path="/not-found" component={PageNotFound} />
+
+        <Redirect to="/not-found" />
       </Switch>
     </BrowserRouter>
   );
+};
+
+const PageNotFound = () => {
+  return <h1>Page Not Found</h1>;
 };
 
 export default Routes;

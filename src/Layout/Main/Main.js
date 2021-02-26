@@ -5,7 +5,7 @@ const Main = (props) => {
   return (
     <div>
       <TopBar />
-      <main>{props.children}</main>
+      <main style={{ margin: 24 }}>{props.children}</main>
     </div>
   );
 };

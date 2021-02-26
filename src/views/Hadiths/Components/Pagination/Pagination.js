@@ -14,12 +14,12 @@ const Pagination = () => {
 
   const goToNextPage = () => {
     const startFrom = offset + 30;
-    history.push(`/?offset=${startFrom}`);
+    history.push(`${history.location.pathname}?offset=${startFrom}`);
   };
 
   const goToPrevPage = () => {
     const startFrom = offset - 30;
-    history.push(`/?offset=${startFrom}`);
+    history.push(`${history.location.pathname}?offset=${startFrom}`);
   };
 
   return (

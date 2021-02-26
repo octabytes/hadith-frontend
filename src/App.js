@@ -11,9 +11,9 @@ const theme = createMuiTheme({
   },
 });
 
-const App = () => {
-  const browserHistory = createBrowserHistory();
+const browserHistory = createBrowserHistory();
 
+const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <Router history={browserHistory}>
