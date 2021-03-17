@@ -21,7 +21,7 @@ const Footer = () => {
         </Typography>
         <Typography>
           <a
-            href="https://github.com/octabytes/hadith-frontend/issues"
+            href="https://docs.google.com/forms/d/e/1FAIpQLSeMYVMsrgcy86wtczVGcR9FE9nbCNxzeA3HtcxPIZEL30wTfw/viewform?usp=sf_link"
             target="_blank"
           >
             Report Issue
