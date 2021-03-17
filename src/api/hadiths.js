@@ -1,7 +1,15 @@
 import axios from "axios";
 
+let apiURL;
+
+if (!process.env.NODE_ENV || process.env.NODE_ENV === "development") {
+  apiURL = "http://localhost:5000/v1";
+} else {
+  apiURL = "https://hadith-api-dot-islamicnet.appspot.com/v1";
+}
+
 const API = axios.create({
-  baseURL: "http://localhost:5000/v1",
+  baseURL: apiURL,
 });
 
 export const getCollectionBooksAPI = async (collection) => {
